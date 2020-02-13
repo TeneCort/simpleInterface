@@ -38,7 +38,7 @@ $modules = [
 			
 			<?php foreach($modules as $module){ ?>
 				
-			<div class="card" style="width: 7rem;" onclick="test(this)">
+			<div class="card" style="width: 12rem;" onclick="activate(this)">
 				<div class="card-body">
 					<h5 class="card-title"><?php echo $module ?></h5>
 					<input type="checkbox" name="<?php echo $module ?>" value="<?php echo $module ?>">Activate<br>

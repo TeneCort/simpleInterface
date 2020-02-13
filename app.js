@@ -9,18 +9,18 @@ slider.oninput = function()
 	output.innerHTML = this.value;
 }
 
-function test(element)
+function activate(element)
 {
 	var checked = document.querySelectorAll("input[type=checkbox]:checked");
 	
 	var unchecked = document.querySelectorAll("input[type=checkbox]");
 	
 	unchecked.forEach((item) => {
-		item.parentNode.style.backgroundColor = 'red';
+		item.parentNode.style.backgroundColor = '#F0FFFF';
 	});
 	
 	checked.forEach((item) => {
-		item.parentNode.style.backgroundColor = 'green';
+		item.parentNode.style.backgroundColor = '#4CAF50';
 	});
 }
 
