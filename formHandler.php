@@ -9,19 +9,31 @@ function execInBackground($cmd)
 	}
 	else
 	{
-		exec($cmd . " > /dev/null &");
+		shell_exec($cmd . ' ' . escapeshellarg('/home/pi/Desktop/test/test.py') . " > /dev/null &");
 	}
 }
 
+echo 'active modules : <br>';
+
 foreach($_GET as $module)
-{
-	echo $module . ' is active <br>';
+{	
+	
+	if ($module != $_GET['temps'])
+	{
+		echo $module . '<br>';
+	}
+	else
+	{
+		echo 'game duration : ' . $module . ' minutes <br>';
+	}
+	
 }
 if (isset($_GET['module1']))
 {
-	execInBackground('lxterminal');
+	execInBackground('python3');
 }
 ?>
-<button><a href="index.php">Index</a></button>
+
+<button onclick="window.location.href = 'index.php'">Index</button>
 
 <?php require_once('footer.php'); ?>
