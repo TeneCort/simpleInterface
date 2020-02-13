@@ -15,6 +15,7 @@ function execInBackground($cmd)
 
 echo 'active modules : <br>';
 
+// loop that iterates and displays selected modules
 foreach($_GET as $module)
 {	
 	
@@ -28,12 +29,15 @@ foreach($_GET as $module)
 	}
 	
 }
+
+// for testing
 if (isset($_GET['module1']))
 {
 	execInBackground('python3');
 }
 ?>
 
-<button onclick="window.location.href = 'index.php'">Index</button>
+<!-- Some HTML -->
+<a href="index.php" class="btn btn-primary">Index</a>
 
 <?php require_once('footer.php'); ?>

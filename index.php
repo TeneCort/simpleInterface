@@ -38,18 +38,26 @@ $modules = [
 		
 		<?php foreach($modules as $module){ ?>
 			
-		<div class="card" style="width: 8rem;">
+		<div class="card" style="width: 7rem;" onclick="test(this)">
 			<div class="card-body">
 				<h5 class="card-title"><?php echo $module ?></h5>
-				<input type="checkbox" name="<?php echo $module ?>" value="<?php echo $module ?>">Activate Module<br>
+				<input type="checkbox" name="<?php echo $module ?>" value="<?php echo $module ?>">Activate<br>
 			</div>
 		</div>
 		
 		<?php } ?>
 			
 	</div>
-
-	<input type="range" name="temps" min="10" max="120"><br>
-	<input type="submit" value = "submit">
+	<p id="sliderOutput">15</p>
+	<div class="d-flex flex-column row slideContainer">
+		<div class="d-flex justify-content-center row">
+			<input type="range" class="slider" id="range" name="temps" min="10" max="120"><br>
+		</div>
+		
+		<div class="d-flex justify-content-center row">
+			<input type="submit" value = "submit">
+		</div>
+	</div>
 </form>
 
+<?php require_once('footer.php'); ?>
