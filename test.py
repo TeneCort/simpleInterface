@@ -9,4 +9,5 @@ for arg in sys.argv:
 
 arg = sys.argv[1]
 
-subprocess.Popen('lxterminal --command="print "' + arg, shell=True)
+
+subprocess.Popen('lxterminal --command="echo "' + arg, shell=True)
