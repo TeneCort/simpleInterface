@@ -1,16 +1,20 @@
 <?php
 require_once('header.php');
 
-function execInBackground($cmd)
+$activeModules = [];
+
+function execInBackground($cmd, $file, $modules)
 {
-	if (substr(php_uname(), 0, 7) == "Windows")
+	$cmd = $cmd . ' ' . escapeshellarg($file) . ' ';
+	
+	foreach($modules as $module)
 	{
-		pclose(popen("stat /B " . $cmd, "r"));
+		$cmd = $cmd . escapeshellarg($module);
 	}
-	else
-	{
-		shell_exec($cmd . ' ' . escapeshellarg('/home/pi/Desktop/test/test.py') . " > /dev/null &");
-	}
+	
+	$cmd = $cmd . " > /dev/null &";
+	
+	shell_exec($cmd);
 }
 
 echo 'active modules : <br>';
@@ -18,22 +22,21 @@ echo 'active modules : <br>';
 // loop that iterates and displays selected modules
 foreach($_GET as $module)
 {	
-	
 	if ($module != $_GET['temps'])
 	{
 		echo $module . '<br>';
+		array_push($activeModules, $module);
 	}
 	else
 	{
 		echo 'game duration : ' . $module . ' minutes <br>';
 	}
-	
 }
 
 // for testing
 if (isset($_GET['module1']))
 {
-	execInBackground('python3');
+	execInBackground('python3', '/home/pi/Desktop/test/test.py', $activeModules);
 }
 ?>
 
