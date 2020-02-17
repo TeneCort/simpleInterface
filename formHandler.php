@@ -7,14 +7,12 @@ function execInBackground($cmd, $file, $modules)
 {
 	$cmd = $cmd . ' ' . escapeshellarg($file) . ' ';
 	
-	/*foreach($modules as $module)
+	foreach($modules as $module)
 	{
-		$cmd = $cmd . escapeshellarg($module);
-	}*/
+		$cmd = $cmd . escapeshellarg($module) . ' ';
+	}
 	
-	$cmd = $cmd . escapeshellarg($modules);
-	
-	$cmd = $cmd . " > /dev/null &";
+	$cmd = $cmd . "> /dev/null &";
 	echo '<br>' . $cmd . '<br>';
 	shell_exec($cmd);
 }
@@ -36,10 +34,9 @@ foreach($_GET as $module)
 }
 
 // for testing
-if (isset($_GET['module1']))
-{
-	execInBackground('python3', '/home/pi/Desktop/test/anotherOne.py', $_GET['temps']);
-}
+
+execInBackground('python3', '/home/pi/Desktop/test/test.py', $_GET);
+
 ?>
 
 <!-- Some HTML -->
