@@ -42,7 +42,7 @@ for argument in arguments:
 # Time calculation process
 currentTime = datetime.datetime.now()
 
-endTime = currentTime + datetime.timedelta(minutes = duration)
+endTime = currentTime + datetime.timedelta(minutes = arguments[-1])
 
 # Write to log. Make a function out of it? 
 f.write("Started at: " + currentTime.strftime("%H:%M:%S") + '\n')
