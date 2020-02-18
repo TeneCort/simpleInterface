@@ -58,7 +58,7 @@ $modules = [
 		<div class="d-flex flex-column row slideContainer">
 			
 			<div class="d-flex justify-content-center row">
-				<input type="range" class="slider" id="range" name="temps" min="10" max="120"><br>
+				<input type="range" class="slider" id="range" name="temps" min="1" max="12"><br>
 			</div>
 			
 			<hr></hr>	
