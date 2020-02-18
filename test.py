@@ -9,6 +9,7 @@ args = ''
 duration = 0
 bus = smbus.SMBus(1)
 address = 0x12
+
 # Arguments provided, needs rework
 for arg in sys.argv:
 	if arg != sys.argv[0]:
@@ -42,4 +43,3 @@ f.write("Ending at: " + endTime.strftime("%H:%M:%S") + '\n')
 f.write("Envoi de la valeur " + str(duration) + '\n')
 f.write("la reponse de l'arduino: " + str(reponse))
 f.close()
-
