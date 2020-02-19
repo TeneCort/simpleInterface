@@ -5,11 +5,15 @@ import datetime
 import time
 import smbus
 
+# init values
 args = ''
 duration = 0
 bus = smbus.SMBus(1)
 address = 0x12
 arguments = []
+
+# Opening the log file
+f = open("log.txt", "w")
 
 # Iterates through the GET variables, fills an array with modules to activate (+100 to differenciate from the duration value)
 # stocks the duration value inside another variable
@@ -22,10 +26,9 @@ for arg in sys.argv:
 				arguments.append(100 + int(arg[-1]))
 		else:
 			arguments.append(int(arg))
- 
-# Opening the log file
-f = open("log.txt", "w")
-# Outputing initial values to send
+
+
+# Outputing into log the initial values to send
 f.write(str(arguments) + '\n')
 
 # I2C process
@@ -41,7 +44,6 @@ for argument in arguments:
 
 # Time calculation process
 currentTime = datetime.datetime.now()
-
 endTime = currentTime + datetime.timedelta(minutes = arguments[-1])
 
 # Write to log. Make a function out of it?
@@ -51,10 +53,12 @@ f.write("Ending at: " + endTime.strftime("%H:%M:%S") + '\n')
 activeModules = len(arguments) - 1
 f.write("Modules to activate : " + str(activeModules) + '\n')
 
-while activeModules > 0:
-	bus.write_byte(address, 200)
-	activeModules = bus.read_byte(address)
-	f.write("Modules actifs : " + str(activeModules) + '\n')
+# Do something as long as we are within the time limits
+while endTime > datetime.datetime.now():
+	while activeModules > 0:
+		bus.write_byte(address, 200)
+		activeModules = bus.read_byte(address)
+		f.write("Modules actifs : " + str(activeModules) + '\n')
 
 f.write('Done. \n')
 
