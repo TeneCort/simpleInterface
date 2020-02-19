@@ -44,9 +44,19 @@ currentTime = datetime.datetime.now()
 
 endTime = currentTime + datetime.timedelta(minutes = arguments[-1])
 
-# Write to log. Make a function out of it? 
+# Write to log. Make a function out of it?
 f.write("Started at: " + currentTime.strftime("%H:%M:%S") + '\n')
 f.write("Ending at: " + endTime.strftime("%H:%M:%S") + '\n')
+
+activeModules = len(arguments) - 1
+f.write("Modules to activate : " + str(activeModules) + '\n')
+
+while activeModules > 0:
+	bus.write_byte(address, 200)
+	activeModules = bus.read_byte(address)
+	f.write("Modules actifs : " + str(activeModules) + '\n')
+
+f.write('Done. \n')
 
 # Closing the log file
 f.close()
