@@ -35,7 +35,7 @@ f.write(str(arguments) + '\n')
 for argument in arguments:
 	bus.write_byte(address, argument)
 
-	time.sleep(1)
+	time.sleep(0.2)
 
 	reponse = bus.read_byte(address)
 	
@@ -59,6 +59,7 @@ while activeModules > 0:
 		f.write("Modules actifs : " + str(activeModules) + '\n')
 		bus.write_byte(address, 200)
 		activeModules = bus.read_byte(address)
+		time.sleep(0.2)
 
 f.write('Done. \n')
 
