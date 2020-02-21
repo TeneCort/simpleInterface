@@ -54,11 +54,11 @@ activeModules = len(arguments) - 1
 f.write("Modules to activate : " + str(activeModules) + '\n')
 
 # Do something as long as we are within the time limits
-while endTime > datetime.datetime.now():
-	while activeModules > 0:
+while activeModules > 0:
+	if endTime > datetime.datetime.now():
+		f.write("Modules actifs : " + str(activeModules) + '\n')
 		bus.write_byte(address, 200)
 		activeModules = bus.read_byte(address)
-		f.write("Modules actifs : " + str(activeModules) + '\n')
 
 f.write('Done. \n')
 
