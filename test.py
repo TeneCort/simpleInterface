@@ -6,7 +6,7 @@ import time
 import smbus
 
 # init values
-args = ''
+arguments = ''
 duration = 0
 bus = smbus.SMBus(1)
 address = 0x12
@@ -21,7 +21,7 @@ for arg in sys.argv:
 	if arg != sys.argv[0]:
 		if arg[0] == 'm':
 			if arg[-2] == '1' or arg[-2] == '2':
-				arguments.append(100 + int(arg[-2] + arg[-1]));  
+				arguments.append(100 + int(arg[-2] + arg[-1]));
 			else:
 				arguments.append(100 + int(arg[-1]))
 		else:
@@ -38,7 +38,7 @@ for argument in arguments:
 	time.sleep(0.2)
 
 	reponse = bus.read_byte(address)
-	
+
 	f.write("Envoi de la valeur " + str(argument) + '\n')
 	f.write("la reponse de l'arduino: " + str(reponse) + '\n')
 
@@ -56,10 +56,10 @@ f.write("Modules to activate : " + str(activeModules) + '\n')
 # Do something as long as we are within the time limits
 while activeModules > 0:
 	if endTime > datetime.datetime.now():
-		f.write("Modules actifs : " + str(activeModules) + '\n')
 		bus.write_byte(address, 200)
 		activeModules = bus.read_byte(address)
 		time.sleep(0.2)
+		f.write("Modules actifs : " + str(activeModules) + "\n")
 
 f.write('Done. \n')
 

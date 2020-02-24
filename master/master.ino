@@ -8,6 +8,7 @@ int activeModules[] = {};
 int activeModuleIndex = 0;
 
 void setup() {
+    activeModuleIndex = 0;
     Serial.begin(9600);
     Wire.begin(SLAVE_ADDRESS);
     Wire.onReceive(receiveData);
@@ -37,13 +38,7 @@ void receiveData(int byteCount)
           Serial.print("Module actif : ");
           Serial.println(dataReceived - 100);
         }
-        
-        if(dataReceived == 200)
-        {
-          Serial.print("I listen ");
-          Serial.println(activeModuleIndex);
-        }
-    }
+    }               
 }
 
 void sendData()
@@ -61,10 +56,10 @@ void sendData()
     
     if(dataReceived == 200)
     {
+      activeModuleIndex--;
       Serial.print("Modules remaining ");
       Serial.println(activeModuleIndex);
       Wire.write(activeModuleIndex);
-      activeModuleIndex--;
     }
     
 }
