@@ -63,7 +63,7 @@ $modules = [
 			
 			<hr></hr>	
 			
-			<div class="row">
+			<div class="d-flex justify-content-center row">
 				<input type="submit" value = "submit">
 			</div>
 
