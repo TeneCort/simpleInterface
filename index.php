@@ -13,7 +13,7 @@ $modules = [
 	'module8',
 	'module9',
 	'module10',
-	'module11',
+	'module11',		// We prolly don't need this
 	'module12',
 	'module13',
 	'module14',
@@ -34,7 +34,7 @@ $modules = [
 <div class="container">
 	<form action="/formHandler.php" method="get">
 		
-		<div class="row">
+		<div class="d-flex justify-content-center row">
 			
 			<?php foreach($modules as $module){ ?>
 				
@@ -57,15 +57,16 @@ $modules = [
 
 		<div class="d-flex flex-column row slideContainer">
 			
-			<div class="d-flex justify-content-center row">
+			<div class="row">
 				<input type="range" class="slider" id="range" name="temps" min="1" max="12"><br>
 			</div>
 			
 			<hr></hr>	
 			
-			<div class="d-flex justify-content-center row">
+			<div class="row">
 				<input type="submit" value = "submit">
 			</div>
+
 		</div>
 	</form>
 </div>

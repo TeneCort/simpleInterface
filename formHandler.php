@@ -3,6 +3,7 @@ require_once('header.php');
 
 $activeModules = [];
 
+// function that parses $_GET arguments received from the web interface into a shell command.
 function execInBackground($cmd, $file, $modules)
 {
 	$cmd = $cmd . ' ' . escapeshellarg($file) . ' ';
@@ -13,13 +14,12 @@ function execInBackground($cmd, $file, $modules)
 	}
 	
 	$cmd = $cmd . "> /dev/null &";
-	echo '<br>' . $cmd . '<br>';
+
 	shell_exec($cmd);
 }
 
-echo 'active modules : <br>';
-
 // loop that iterates and displays selected modules
+echo 'active modules : <br>';
 foreach($_GET as $module)
 {	
 	if ($module != $_GET['temps'])
@@ -33,13 +33,12 @@ foreach($_GET as $module)
 	}
 }
 
-// for testing
-
+// call our function passing all the GET variables
 execInBackground('python3', '/home/pi/Desktop/test/test.py', $_GET);
 
 ?>
 
-<!-- Some HTML -->
+<!-- Return to index -->
 <a href="index.php" class="btn btn-primary">Index</a>
 
 <?php require_once('footer.php'); ?>
