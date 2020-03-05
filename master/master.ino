@@ -7,7 +7,8 @@ int modules[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 int activeModules[] = {};
 int activeModuleIndex = 0;
 
-void setup() {
+void setup()
+{
     activeModuleIndex = 0;
     Serial.begin(9600);
     Wire.begin(SLAVE_ADDRESS);
@@ -15,7 +16,8 @@ void setup() {
     Wire.onRequest(sendData);
 }
 
-void loop() {
+void loop()
+{
     delay(100);
 }
 
