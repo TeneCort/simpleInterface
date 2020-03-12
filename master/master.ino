@@ -19,6 +19,7 @@ void setup()
 void loop()
 {
     delay(100);
+    checkModules();
 }
 
 void receiveData(int byteCount)
@@ -29,16 +30,17 @@ void receiveData(int byteCount)
         
         if(dataReceived < 100)
         {
-          Serial.print("Durée du script : ");
-          Serial.println(dataReceived);
+          Serial.print("D");
+          Serial.print(dataReceived);
         }
         
         if(dataReceived > 100 && dataReceived < 200)
         {
           activeModules[activeModuleIndex] = dataReceived - 100;
           activeModuleIndex++;
-          Serial.print("Module actif : ");
-          Serial.println(dataReceived - 100);
+          Serial.print("M");
+          Serial.print(dataReceived - 100);
+          Serial.println();
         }
     }               
 }
@@ -58,15 +60,21 @@ void sendData()
     
     if(dataReceived == 200)
     {
-      activeModuleIndex--;
-      Serial.print("Modules remaining ");
+      //activeModuleIndex--;
+      Serial.print("R");
       Serial.println(activeModuleIndex);
       Wire.write(activeModuleIndex);
     }
-    
 }
 
 void checkModules()
 {
-  
+  if (Serial.available())
+  {
+    char c = Serial.read();
+    if(c == 'W')
+    {
+      activeModuleIndex--;
+    }
+  }
 }
