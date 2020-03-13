@@ -19,10 +19,16 @@ String buttonColor = "";
 String buttonText = "";
 String indicator = "";
 String reference = "";
+String seconds = "";
+String minutes = "";
+String timerStr = "";
 int batteries = 0;
 int timer = 0;
 int strikes = 0;
 int interval = 1000;
+char control = ' ';
+
+int test = 0;
 
 // Serial activators
 bool isActive = false;
@@ -57,7 +63,19 @@ void setup()
 void clockCounter()
 {
   timer --;
-  Serial.println(timer);
+  seconds = String(timer % 60);
+  if (timer % 60 < 10)
+  {
+    seconds = "0" + seconds;
+  }
+  minutes = String((timer - (timer % 60)) / 60);
+  timerStr = minutes + ":" + seconds;
+
+  for (int i = 0; i <= timerStr.length(); i++)
+  {
+    Serial.print(timerStr[i]);
+  }
+  Serial.println("");
 }
 
 void loop()
@@ -65,19 +83,15 @@ void loop()
   currentState = digitalRead(SENSOR_PIN);
 
   if (millis() > time + interval && timer > 0)
-  { 
-      clockCounter();
-      time = millis();
+  {
+    clockCounter();
+    time = millis();
   }
 
   if (buttonColor == "BLUE" && buttonText == "Abort")
   {
     // Hold and ref
-    if (lastState == LOW && currentState == HIGH)
-    {
-      Serial.print("Strip Color : ");
-      Serial.println(reference);
-    }
+    isReferenced(true);
   }
 
   else if (batteries > 1 && buttonText == "Detonate")
@@ -88,11 +102,7 @@ void loop()
   else if (buttonColor == "WHITE" && isIndicator == 1 && indicator == "CAR")
   {
     // Hold and ref
-    if (lastState == LOW && currentState == HIGH)
-    {
-      Serial.print("Strip Color : ");
-      Serial.println(reference);
-    }
+    isReferenced(true);
   }
 
   else if (batteries > 2 && isIndicator == 1 && indicator == "FRK")
@@ -102,11 +112,7 @@ void loop()
 
   else if (buttonColor == "YELLOW")
   {
-    if (lastState == LOW && currentState == HIGH)
-    {
-      Serial.print("Strip Color : ");
-      Serial.println(reference);
-    }
+    isReferenced(true);
   }
 
   else if (buttonColor == "RED" && buttonText == "Hold")
@@ -121,17 +127,7 @@ void loop()
 
   else
   {
-    // Press and release
-  }
-
-  if (lastState == LOW && currentState == HIGH)
-  {
-    Serial.println("The sensor is touched");
-  }
-  if (lastState == HIGH && currentState == LOW)
-  {
-    Serial.println("The sensor is untouched");
-    win();
+    isReferenced(true);
   }
 
   // save the the last state
@@ -147,7 +143,7 @@ void loop()
       moduleListener = false;
       durationListener = false;
     }
-    
+
     // Module Listener
     if (c == 'M')
     {
@@ -173,10 +169,54 @@ void loop()
       {
         timer = (c - 48) * 60;
         Serial.print("My duration is : ");
-        Serial.print(timer * 60);
+        Serial.print(timer);
         durationListener = false;
       }
     }
+  }
+}
+
+void isReferenced(bool ref)
+{
+  if (ref)
+  {
+    if (reference == "BLUE")
+    {
+      control = '4';
+    }
+    else if (reference == "WHITE")
+    {
+      control = '1';
+    }
+    else if (reference == "YELLOW")
+    {
+      control = '5';
+    }
+    else
+    {
+      control = '1';
+    }
+
+    if (lastState == LOW && currentState == HIGH)
+    {
+      Serial.print("Strip Color : ");
+      Serial.println(reference);
+    }
+
+    if (lastState == HIGH && currentState == LOW)
+    {
+      for (int i = 0; i <= timerStr.length(); i++)
+      {
+        if (timerStr[i] == control)
+        {
+          win();
+        }
+      }
+    }
+  }
+  else
+  {
+    Serial.print("press and release");
   }
 }
 

@@ -61,8 +61,6 @@ void sendData()
     if(dataReceived == 200)
     {
       //activeModuleIndex--;
-      Serial.print("R");
-      Serial.println(activeModuleIndex);
       Wire.write(activeModuleIndex);
     }
 }
@@ -75,6 +73,8 @@ void checkModules()
     if(c == 'W')
     {
       activeModuleIndex--;
-    }
+      Serial.print("R");
+      Serial.println(activeModuleIndex);
+    } 
   }
 }
